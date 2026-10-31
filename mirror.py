@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Run OpenCode Mirror locally. Python 3.10+, no third-party packages."""
 import argparse
+import errno
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import os
@@ -167,7 +168,10 @@ def main():
         server = MirrorServer(("127.0.0.1", args.port), report, timezone_name, database if report else None,
                               timezone_auto=args.timezone is None)
     except (ArchiveError, OSError) as exc:
-        print(f"OpenCode Mirror: {exc}", file=sys.stderr)
+        message = str(exc)
+        if isinstance(exc, OSError) and exc.errno == errno.EADDRINUSE:
+            message = f"Port {args.port} is already in use. Run again with --port 0 to choose a free port."
+        print(f"OpenCode Mirror: {message}", file=sys.stderr)
         return 1
     url = f"http://127.0.0.1:{server.server_port}/"
     print(f"OpenCode Mirror {VERSION} · {url}", flush=True)

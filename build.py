@@ -10,7 +10,7 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parent
 FONT_URL = "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:opsz,wght@6..72,500&family=Plus+Jakarta+Sans:wght@800&display=swap"
-APP_FILES = ("mirror.py", "analyze.py", "build.py", "README.md", "FONT_LICENSES.txt")
+APP_FILES = ("mirror.py", "analyze.py", "build.py", "README.md", "agent-setup.md", "FONT_LICENSES.txt")
 
 
 def refresh_fonts():
@@ -51,7 +51,8 @@ def build(out=ROOT / "site"):
         shutil.copyfile(ROOT / "assets" / name, out / "assets" / name)
     shutil.copyfile(ROOT / "handbook/style.css", out / "style.css")
     shutil.copyfile(ROOT / "FONT_LICENSES.txt", out / "FONT_LICENSES.txt")
-    index = (ROOT / "handbook/index.html").read_text(encoding="utf-8").replace("../assets/", "assets/").replace("../FONT_LICENSES.txt", "FONT_LICENSES.txt")
+    shutil.copyfile(ROOT / "agent-setup.md", out / "agent-setup.md")
+    index = (ROOT / "handbook/index.html").read_text(encoding="utf-8").replace("../assets/", "assets/").replace("../FONT_LICENSES.txt", "FONT_LICENSES.txt").replace("../agent-setup.md", "agent-setup.md")
     (out / "index.html").write_text(index, encoding="utf-8")
     with zipfile.ZipFile(out / "opencode-mirror.zip", "w", zipfile.ZIP_DEFLATED) as archive:
         for path in package_files():

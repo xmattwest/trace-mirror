@@ -32,9 +32,12 @@
     </section>
     <section class="section" id="run">
       <h2>Run locally</h2>
-      <pre><code>python3 mirror.py --db "/path/to/opencode.db"</code></pre>
+      <pre><code>python3 mirror.py</code></pre>
       <p>Unzip the download and run the command from that folder. Mirror opens <code>http://127.0.0.1:8787/</code>. Without <code>--db</code>, it tries OpenCode’s usual data directory or lets you enter a path.</p>
-      <details><summary>Timezone and export</summary><pre><code>python3 mirror.py --db "/path/to/opencode.db" --timezone America/Denver
+      <details><summary>Set up with an agent</summary><p>Give your agent <a href="../agent-setup.md">agent-setup.md</a>, or send this:</p><pre><code>Set up OpenCode Mirror on my computer using
+https://xmattwest.github.io/trace-mirror/agent-setup.md</code></pre></details>
+      <details><summary>Archive path, timezone and export</summary><pre><code>python3 mirror.py --db "/path/to/opencode.db"
+python3 mirror.py --db "/path/to/opencode.db" --timezone America/Denver
 python3 mirror.py --db "/path/to/opencode.db" --export mirror.html</code></pre><p>The app uses your browser’s timezone; headless exports use the computer’s zone, with UTC as a fallback. An explicit override takes precedence. Daylight saving follows each message’s date, and snapshots retain their original zone.</p><p>Other options: <code>--port 8788</code>, <code>--no-open</code>, <code>--version</code>.</p></details>
       <details><summary>Method and privacy</summary><p>The persona is a transparent heuristic, not a validated personality test. Fewer than 20 filtered messages produces an early sketch. Root user text excludes synthetic/ignored parts, reminders and identifiable history copies. Pasted material can still influence the result. Activity measures interaction, not hours worked.</p><p>The database stays read-only. Nothing is uploaded. Exports exclude prompts, tool inputs and outputs, full paths, session IDs and credentials. Shared HTML aliases project names; dates, aggregate counts and model/tool names remain.</p></details>
     </section>
