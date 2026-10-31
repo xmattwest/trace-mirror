@@ -12,8 +12,11 @@
   --font-heading: Inter, Arial, sans-serif;
   --font-display: Newsreader, Georgia, serif;
   /* Share-card type on the 1200px canvas, composed for phone-width viewing. */
-  --card-title: 60px;
-  --card-label: 40px;
-  --card-value: 44px;
-  --card-caption: 36px;
+  --card-wordmark: 64px;
+  --card-title: 84px;
+  --card-body: 30px;
+  --card-section: 48px;
+  --card-label: 34px;
+  --card-value: 40px;
+  --card-caption: 28px;
 }

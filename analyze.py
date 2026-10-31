@@ -11,7 +11,7 @@ import sqlite3
 from urllib.parse import quote
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-VERSION = "0.3.2"
+VERSION = "0.3.3"
 REMINDERS = re.compile(r"<system-reminder\b[^>]*>.*?(?:</system-reminder>|$)", re.S | re.I)
 CONTINUE = re.compile(r"^(go|continue|proceed|yes|yep|ok|okay|do it|keep going|let'?s go)[.!\s]*$", re.I)
 SIGNALS = {
