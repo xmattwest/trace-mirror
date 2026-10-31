@@ -2,9 +2,9 @@
 
 A design handbook for research, documents, diagrams and software.
 
-**[Read the handbook →](https://xmattwest.github.io/warm-precision/)**
+**[Read the handbook →](https://xmattwest.github.io/trace-mirror/)**
 
-Principles, a Dawn State visual profile, medium-specific guidance and working examples. Includes [OpenCode Mirror](https://xmattwest.github.io/warm-precision/handbook/opencode-mirror.html), a local view of your conversational style and daily rhythm.
+Principles, a Dawn State visual profile, medium-specific guidance and working examples. Includes [OpenCode Mirror](https://xmattwest.github.io/trace-mirror/handbook/opencode-mirror.html), a local view of your conversational style and daily rhythm.
 
 ## Local use
 

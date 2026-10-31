@@ -297,7 +297,7 @@ def page(title, body, kind="", prefix="", font_mode="embedded", styles=()):
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{html.escape(page_title)}</title><meta name="description" content="A design handbook for research, documents, diagrams and software."><meta property="og:title" content="{html.escape(page_title, quote=True)}"><meta property="og:description" content="A design handbook for research, documents, diagrams and software."><meta property="og:type" content="website"><meta name="twitter:card" content="summary"><link rel="icon" href="{prefix}favicon.svg"><link rel="stylesheet" href="{prefix}tokens.css"><link rel="stylesheet" href="{prefix}fonts.css"><link rel="stylesheet" href="{prefix}layout.css">{extra_styles}</head>
 <body class="{kind}"><a class="skip" href="#main">Skip to content</a>
-<header class="masthead"><a href="{prefix}index.html" class="wordmark">Warm Precision</a><nav aria-label="Primary"><a href="{prefix}index.html#handbook">Handbook</a><a href="{prefix}index.html#calibration">Examples</a><a href="https://github.com/xmattwest/warm-precision">GitHub</a></nav></header>
+<header class="masthead"><a href="{prefix}index.html" class="wordmark">Warm Precision</a><nav aria-label="Primary"><a href="{prefix}index.html#handbook">Handbook</a><a href="{prefix}index.html#calibration">Examples</a><a href="https://github.com/xmattwest/trace-mirror">GitHub</a></nav></header>
 <main id="main">{body}</main><footer class="site-footer"><p>Dawn State profile</p><a href="{prefix}warm-precision-kit.zip">Download source</a><a href="{prefix}handbook/SOURCES.html">Sources</a></footer></body></html>'''
 
 
