@@ -139,35 +139,29 @@
     status('Exported an offline snapshot of your style and rhythm.');
   }
 
-  function wrap(text, limit) {
-    const lines = [''];
-    for (const word of text.split(' ')) {
-      if ((lines.at(-1)+' '+word).trim().length>limit && lines.at(-1)) lines.push(word);
-      else lines[lines.length-1]=(lines.at(-1)+' '+word).trim();
-    }
-    return lines;
-  }
-
   function cardSVG() {
     const style = getComputedStyle(document.documentElement);
     const color = role=>style.getPropertyValue(`--${role}`).trim();
     const ink=color('text-primary'), slate=color('structure'), paper=color('canvas'), orange=color('emphasis');
     const fontCSS=document.getElementById('mirror-fonts').textContent;
+    const type=Object.fromEntries(['title','label','value','caption'].map(role=>[role,parseFloat(style.getPropertyValue(`--card-${role}`))]));
     const title=report.assessment.persona.replace(/^The /,'');
-    const description=wrap(report.assessment.description,67);
     const strongest=Math.max(...report.communication.signals.map(row=>row.rate));
+    const strongestIndex=strongest>0 ? report.communication.signals.findIndex(row=>row.rate===strongest) : -1;
     const rhythmMax=Math.max(0,...report.rhythm.heatmap.flat());
-    return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200" role="img" aria-labelledby="card-title card-desc"><title id="card-title">OpenCode Mirror: ${esc(title)}</title><desc id="card-desc">Working-style snapshot with language-signal rates and a weekday/hour activity mosaic in ${esc(report.timezone)}.</desc><defs><style><![CDATA[${fontCSS} text{font-family:Inter,Arial,sans-serif} .display{font-family:'Plus Jakarta Sans',Arial,sans-serif;font-weight:800}]]></style></defs>
-      <rect width="1200" height="1200" fill="${paper}"/><text x="72" y="104" fill="${slate}" font-size="23" font-weight="600" letter-spacing="4">OPENCODE MIRROR</text><circle cx="1100" cy="96" r="12" fill="${orange}" stroke="${slate}" stroke-width="2"/>
-      <text x="72" y="182" fill="${slate}" font-size="22">MY WORKING STYLE</text><text class="display" x="72" y="264" fill="${ink}" font-size="70">${esc(title)}.</text>
-      ${description.map((line,index)=>`<text x="72" y="322" dy="${index*36}" fill="${slate}" font-size="25">${esc(line)}</text>`).join('')}
-      <text x="72" y="432" fill="${ink}" font-size="25" font-weight="600">${esc(report.assessment.communication)}</text><line x1="72" x2="1128" y1="466" y2="466" stroke="${slate}" stroke-width="1"/>
-      ${report.communication.signals.map((row,index)=>{const y=516+index*54;return `<text x="72" y="${y}" fill="${ink}" font-size="22">${esc(row.label)}</text><rect x="366" y="${y-16}" width="570" height="12" fill="${paper}" stroke="${slate}" stroke-width="1"/><rect x="366" y="${y-16}" width="${570*row.rate/100}" height="12" fill="${row.rate===strongest ? orange : slate}" stroke="${slate}" stroke-width="1"/><text x="1128" y="${y}" text-anchor="end" fill="${ink}" font-size="23" font-weight="600">${row.rate.toFixed(1)}%</text>`;}).join('')}
-      <text x="72" y="858" fill="${slate}" font-size="18">Share of filtered messages · categories overlap · a working lens, not a fixed identity</text><line x1="72" x2="1128" y1="894" y2="894" stroke="${slate}" stroke-width="1"/>
-      <text x="72" y="926" fill="${slate}" font-size="18" font-weight="600">MY RHYTHM · ${esc(report.timezone)}</text>
-      ${report.rhythm.heatmap.map((row,day)=>`<text x="72" y="${954+day*20}" fill="${slate}" font-size="16">${days[day].slice(0,3)}</text>${row.map((value,h)=>{const size=rhythmMax ? Math.sqrt(value/rhythmMax)*16 : 0; return size ? `<rect x="${228+h*37+(16-size)/2}" y="${940+day*20+(16-size)/2}" width="${size}" height="${size}" fill="${value===rhythmMax ? orange : slate}"/>` : '';}).join('')}`).join('')}
-      ${[0,4,8,12,16,20,23].map(h=>`<text x="${236+h*37}" y="1098" text-anchor="middle" fill="${slate}" font-size="16">${String(h).padStart(2,'0')}</text>`).join('')}
-      <text x="72" y="1134" fill="${slate}" font-size="18">${esc(dateLabel(report.coverage.start))} — ${esc(dateLabel(report.coverage.end))} · Square area = messages</text><text x="72" y="1168" fill="${slate}" font-size="18">Your work, reflected. Analyzed locally with OpenCode Mirror.</text></svg>`;
+    const coverage=report.coverage.start ? `${dateLabel(report.coverage.start)} — ${dateLabel(report.coverage.end)}` : 'No dated messages';
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200" role="img" aria-labelledby="card-title card-desc"><title id="card-title">OpenCode Mirror: ${esc(title)}</title><desc id="card-desc">Working-style snapshot. Rates are shares of ${num(report.summary.messages)} filtered messages; categories overlap. The weekday/hour mosaic uses ${esc(report.timezone)}. A working lens, not a fixed identity.</desc><defs><style><![CDATA[${fontCSS} text{font-family:Inter,Arial,sans-serif;font-variant-numeric:tabular-nums} .display{font-family:'Plus Jakarta Sans',Arial,sans-serif;font-weight:800}]]></style></defs>
+      <rect width="1200" height="1200" fill="${paper}"/><text x="64" y="80" fill="${slate}" font-size="${type.caption}" font-weight="600" letter-spacing="3">OPENCODE MIRROR</text><circle cx="1120" cy="66" r="14" fill="${orange}" stroke="${slate}" stroke-width="2"/>
+      <text class="display" x="64" y="142" fill="${ink}" font-size="${type.title}">${esc(title)}.</text>
+      <text x="64" y="194" fill="${ink}" font-size="${type.label}" font-weight="600">${esc(report.assessment.communication)}</text><line x1="64" x2="1136" y1="224" y2="224" stroke="${slate}" stroke-width="1"/>
+      ${report.communication.signals.map((row,index)=>{const y=270+index*50;return `<text x="64" y="${y}" fill="${ink}" font-size="${type.label}">${esc(row.label)}</text><rect x="500" y="${y-23}" width="440" height="16" fill="${paper}" stroke="${slate}" stroke-width="2"/><rect x="500" y="${y-23}" width="${440*row.rate/100}" height="16" fill="${index===strongestIndex ? orange : slate}" stroke="${slate}" stroke-width="2"/><text x="1136" y="${y}" text-anchor="end" fill="${ink}" font-size="${type.value}" font-weight="600">${row.rate.toFixed(1)}%</text>`;}).join('')}
+      <text x="64" y="572" fill="${slate}" font-size="${type.caption}">Share of ${num(report.summary.messages)} filtered messages · categories overlap</text>
+      <text x="64" y="614" fill="${slate}" font-size="${type.caption}">A working lens, not a fixed identity.</text><line x1="64" x2="1136" y1="648" y2="648" stroke="${slate}" stroke-width="1"/>
+      <text x="64" y="692" fill="${slate}" font-size="${type.label}" font-weight="600">My rhythm</text><text x="1136" y="692" text-anchor="end" fill="${slate}" font-size="${type.caption}">${esc(report.timezone)}</text>
+      ${report.rhythm.heatmap.map((row,day)=>`<text x="64" y="${742+day*44}" fill="${slate}" font-size="${type.caption}">${days[day].slice(0,3)}</text>${row.map((value,h)=>{const size=rhythmMax ? Math.sqrt(value/rhythmMax)*28 : 0; return size ? `<rect x="${216+h*38+(28-size)/2}" y="${710+day*44+(28-size)/2}" width="${size}" height="${size}" fill="${value===rhythmMax ? orange : slate}"${value===rhythmMax ? ` stroke="${slate}" stroke-width="2"` : ''}/>` : '';}).join('')}`).join('')}
+      ${[0,4,8,12,16,20,23].map(h=>`<text x="${230+h*38}" y="1046" text-anchor="middle" fill="${slate}" font-size="${type.caption}">${String(h).padStart(2,'0')}</text>`).join('')}
+      <text x="64" y="1096" fill="${slate}" font-size="${type.caption}">Square area = messages · orange = peak</text>
+      <text x="64" y="1140" fill="${slate}" font-size="${type.caption}">${esc(coverage)}</text></svg>`;
   }
 
   async function saveCard(button) {
