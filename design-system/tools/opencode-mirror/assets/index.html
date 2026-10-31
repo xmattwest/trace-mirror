@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Your working style, conversation fingerprint and daily rhythm, drawn from your local OpenCode archive.">
+  <title>OpenCode Mirror · Your work, reflected.</title>
+  <style id="mirror-theme">{{theme}}</style>
+  <style id="mirror-fonts">{{fonts}}</style>
+  <style>{{css}}</style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to your mirror</a>
+  <div id="app"><main id="main" class="shell"><p>Opening your mirror…</p></main></div>
+  <p id="status" class="status" role="status" aria-live="polite"></p>
+  <noscript><p class="shell">JavaScript is needed for the interactive charts and exports. The archive stays local.</p></noscript>
+  <script type="application/json" id="report-data">{{data}}</script>
+  <script type="application/json" id="client-settings">{{settings}}</script>
+  <script>{{js}}</script>
+</body>
+</html>
