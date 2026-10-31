@@ -1,23 +1,26 @@
-# Warm Precision
+# OpenCode Mirror
 
-A design handbook for research, documents, diagrams and software.
+Your working style, conversation fingerprint and daily rhythm, drawn from your local OpenCode archive.
 
-**[Read the handbook →](https://xmattwest.github.io/trace-mirror/)**
+**[Handbook & download →](https://xmattwest.github.io/trace-mirror/)**
 
-Principles, a Dawn State visual profile, medium-specific guidance and working examples. Includes [OpenCode Mirror](https://xmattwest.github.io/trace-mirror/handbook/opencode-mirror.html), a local view of your conversational style and daily rhythm.
+## Run
 
-## Local use
-
-Python 3.10+.
+Python 3.10+. No dependencies to install.
 
 ```sh
-python3 design-system/scripts/build.py --embed-fonts
-python3 -m http.server 8080 --directory handbook
+python3 mirror.py --db "/path/to/opencode.db"
 ```
 
-Open [localhost:8080](http://localhost:8080). Edit the Markdown, profile tokens and assets under `design-system/`, then rebuild.
+Opens [127.0.0.1:8787](http://127.0.0.1:8787/). Without `--db`, Mirror tries OpenCode’s usual data directory or lets you enter a path.
+
+Save a PNG share card or an offline HTML report. For a headless export, add `--export mirror.html`. Other options: `--timezone America/Denver`, `--port 8788`, `--no-open`.
+
+The database stays read-only. Nothing is uploaded. The persona is a transparent heuristic, not a validated personality test.
+
+## Development
 
 ```sh
-python3 design-system/scripts/build.py --check
-python3 design-system/scripts/test_build.py
+python3 -m unittest discover -s tests -v
+python3 build.py
 ```

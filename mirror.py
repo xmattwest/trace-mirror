@@ -17,19 +17,10 @@ HERE = Path(__file__).resolve().parent
 
 def theme_assets():
     assets = HERE / "assets"
-    if (assets / "theme.css").exists():
-        theme = (assets / "theme.css").read_text(encoding="utf-8")
-    else:
-        profile = json.loads((HERE.parents[1] / "profiles/dawn-state/tokens.json").read_text(encoding="utf-8"))
-        values = {role: profile["colors"][name] for role, name in profile["roles"].items()}
-        for role, settings in profile["typography"].items():
-            values[f"font-{role}"] = f'"{settings["family"]}", {settings["fallback"]}'
-        theme = ":root{" + "".join(f"--{name}:{value};" for name, value in values.items()) + "}"
+    theme = (assets / "theme.css").read_text(encoding="utf-8")
     fonts = assets / "fonts.css"
-    if not fonts.exists():
-        fonts = HERE.parents[2] / "handbook/fonts.css"
     font_css = fonts.read_text(encoding="utf-8") if fonts.exists() else ""
-    # An unembedded handbook font mode must not create a network dependency.
+    # Report exports must remain offline.
     if "@import" in font_css or "url(https:" in font_css:
         font_css = ""
     notice = HERE / "FONT_LICENSES.txt"

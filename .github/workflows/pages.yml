@@ -1,4 +1,4 @@
-name: Handbook
+name: Mirror
 
 on:
   push:
@@ -23,13 +23,11 @@ jobs:
         with:
           python-version: '3.12'
       - uses: actions/configure-pages@v5
-      - run: python3 -m unittest discover -s design-system/tools/opencode-mirror/tests -v
-      - run: python3 design-system/scripts/test_build.py
-      - run: python3 design-system/scripts/build.py --public --embed-fonts
-      - run: python3 design-system/scripts/build.py --public --check
+      - run: python3 -m unittest discover -s tests -v
+      - run: python3 build.py
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: handbook
+          path: site
 
   deploy:
     needs: build

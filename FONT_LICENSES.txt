@@ -6,7 +6,11 @@ Plus Jakarta Sans
 Copyright 2020 The Plus Jakarta Sans Project Authors (https://github.com/tokotype/PlusJakartaSans)
 Source: https://raw.githubusercontent.com/google/fonts/main/ofl/plusjakartasans/OFL.txt
 
-Both font families are licensed under the following SIL Open Font License,
+Newsreader
+Copyright 2020 The Newsreader Project Authors (http://github.com/productiontype/Newsreader)
+Source: https://raw.githubusercontent.com/google/fonts/main/ofl/newsreader/OFL.txt
+
+These font families are licensed under the following SIL Open Font License,
 Version 1.1. This notice applies to the bundled font software, not the tool's code.
 
 -----------------------------------------------------------

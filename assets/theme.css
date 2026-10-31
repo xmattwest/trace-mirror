@@ -1,0 +1,14 @@
+:root {
+  --canvas: #FFFFF0;
+  --text-primary: #0F0F0F;
+  --text-secondary: #1E3447;
+  --structure: #2C3E50;
+  --link: #2C3E50;
+  --focus: #2C3E50;
+  --emphasis: #F39C12;
+  --on-structure: #FFFFF0;
+  --on-emphasis: #0F0F0F;
+  --font-body: Inter, Arial, sans-serif;
+  --font-heading: Inter, Arial, sans-serif;
+  --font-display: Newsreader, Georgia, serif;
+}

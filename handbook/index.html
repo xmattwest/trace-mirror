@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenCode Mirror</title>
+  <meta name="description" content="Your working style, conversation fingerprint and daily rhythm, drawn from your local OpenCode archive.">
+  <meta property="og:title" content="OpenCode Mirror">
+  <meta property="og:description" content="Your working style, conversation fingerprint and daily rhythm, drawn from your local OpenCode archive.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="stylesheet" href="../assets/fonts.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="masthead"><a class="wordmark" href="#main">mirror.</a><a href="https://github.com/xmattwest/trace-mirror">GitHub</a></header>
+  <main id="main">
+    <section class="intro">
+      <p class="eyebrow">A local tool for OpenCode</p>
+      <h1>OpenCode Mirror</h1>
+      <p class="lead">Your working style, conversation fingerprint and daily rhythm, drawn from your local archive.</p>
+      <div class="actions"><a class="button" href="opencode-mirror.zip" download>Download Mirror</a><a href="#run">Run locally</a></div>
+      <p class="small">Python 3.10+ · Read-only SQLite · No upload</p>
+    </section>
+    <section class="section report" aria-label="The report">
+      <div><h2>Working style</h2><p>A persona and language signals, with scoring rules and message counts you can inspect.</p></div>
+      <div><h2>Daily rhythm</h2><p>A weekday/hour mosaic in your local timezone. Exact counts are available in the report.</p></div>
+      <div><h2>A snapshot to keep</h2><p>Save a PNG share card or an offline HTML report, without prompts or source paths.</p></div>
+    </section>
+    <section class="section" id="run">
+      <h2>Run locally</h2>
+      <pre><code>python3 mirror.py --db "/path/to/opencode.db"</code></pre>
+      <p>Unzip the download and run the command from that folder. Mirror opens <code>http://127.0.0.1:8787/</code>. Without <code>--db</code>, it tries OpenCode’s usual data directory or lets you enter a path.</p>
+      <details><summary>Timezone and export</summary><pre><code>python3 mirror.py --db "/path/to/opencode.db" --timezone America/Denver
+python3 mirror.py --db "/path/to/opencode.db" --export mirror.html</code></pre><p>The app uses your browser’s timezone; headless exports use the computer’s zone, with UTC as a fallback. An explicit override takes precedence. Daylight saving follows each message’s date, and snapshots retain their original zone.</p><p>Other options: <code>--port 8788</code>, <code>--no-open</code>, <code>--version</code>.</p></details>
+      <details><summary>Method and privacy</summary><p>The persona is a transparent heuristic, not a validated personality test. Fewer than 20 filtered messages produces an early sketch. Root user text excludes synthetic/ignored parts, reminders and identifiable history copies. Pasted material can still influence the result. Activity measures interaction, not hours worked.</p><p>The database stays read-only. Nothing is uploaded. Exports exclude prompts, tool inputs and outputs, full paths, session IDs and credentials. Shared HTML aliases project names; dates, aggregate counts and model/tool names remain.</p></details>
+    </section>
+  </main>
+  <footer><a href="https://github.com/xmattwest/trace-mirror">Source</a><a href="../FONT_LICENSES.txt">Font licenses</a></footer>
+</body>
+</html>
